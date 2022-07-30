@@ -1,7 +1,7 @@
 import { Box, TextField, Button, MenuItem, Typography } from "@mui/material";
 import React from "react";
 
-const AddAddressForm = ({ handleClose }) => {
+const AddressForm = ({ handleClose, addMode=true }) => {
   const [addressType, setaddressType] = React.useState("");
 
   const handleAddrTypeChange = (event) => {
@@ -29,6 +29,7 @@ const AddAddressForm = ({ handleClose }) => {
             </Typography>
             <div className="row">
               <TextField
+                fullWidth
                 required
                 id="addrName"
                 label="Address Name"
@@ -38,6 +39,7 @@ const AddAddressForm = ({ handleClose }) => {
                 }}
               />
               <TextField
+                fullWidth
                 required
                 id="addrType"
                 label="Address Type"
@@ -60,6 +62,7 @@ const AddAddressForm = ({ handleClose }) => {
                 </MenuItem>
               </TextField>
               <TextField
+                fullWidth
                 required
                 id="addrLn1"
                 label="Address 1"
@@ -69,6 +72,7 @@ const AddAddressForm = ({ handleClose }) => {
                 }}
               />
               <TextField
+                fullWidth
                 id="addrLn2"
                 label="Address 2"
                 placeholder="Address 2"
@@ -77,6 +81,7 @@ const AddAddressForm = ({ handleClose }) => {
                 }}
               />
               <TextField
+                fullWidth
                 id="city"
                 label="City"
                 placeholder="City"
@@ -85,6 +90,7 @@ const AddAddressForm = ({ handleClose }) => {
                 }}
               />
               <TextField
+                fullWidth
                 required
                 id="state"
                 label="State"
@@ -94,6 +100,7 @@ const AddAddressForm = ({ handleClose }) => {
                 }}
               />
               <TextField
+                fullWidth
                 required
                 id="country"
                 label="Country"
@@ -130,4 +137,4 @@ const AddAddressForm = ({ handleClose }) => {
   );
 };
 
-export default AddAddressForm;
+export default AddressForm;

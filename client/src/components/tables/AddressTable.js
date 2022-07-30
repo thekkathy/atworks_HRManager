@@ -6,24 +6,15 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  Typography,
-  IconButton,
-  Modal,
-  Box,
   Button,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import AddAddressForm from "../forms/address/AddAddressForm";
-import { modalBoxStyle } from "../styles/mdsStyles/mdsStyles";
+import AddressFormModal from "../modals/AddressFormModal";
 
 const AddressTable = ({ rowData }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const navigate = useNavigate();
+  const handleClose = () => setOpen(false);
   return (
     <div>
       <div className="mb-4">
@@ -73,16 +64,7 @@ const AddressTable = ({ rowData }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={modalBoxStyle}>
-            <AddAddressForm handleClose={handleClose} />
-        </Box>
-      </Modal>
+      <AddressFormModal open={open} handleClose={handleClose} />
     </div>
   );
 };

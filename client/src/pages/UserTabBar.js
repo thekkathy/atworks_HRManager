@@ -1,13 +1,13 @@
-import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Button, Tab, Tabs } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
 import { mockGetAddress } from "../api/mockGetAddress";
-import AddressTable from "../components/AddressTable";
+import AddressTable from "../components/tables/AddressTable";
 import TabPanel from "../components/TabPanel";
-import AddPersonalInfo from "../forms/personalInfo/AddPersonalInfo";
+import PersonalInfoForm from "../components/forms/PersonalInfoForm";
 import "../styles/UserTabBar.css";
 
-const UserTabBar = ({ addUser }) => {
+const UserTabBar = ({ addMode }) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -30,7 +30,7 @@ const UserTabBar = ({ addUser }) => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          {addUser ? <AddPersonalInfo /> : "EditUser"}
+          {addMode ? <PersonalInfoForm /> : "EditUser"}
         </TabPanel>
         <TabPanel value={value} index={1}>
           <AddressTable rowData={addresses} />

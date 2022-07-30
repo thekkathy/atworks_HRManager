@@ -16,9 +16,11 @@ const Navbar = () => {
       <AppBar position="static">
         <Toolbar>
           <div className="d-flex w-100">
-            <Link to="/" className="navlink">
-              <Button color="inherit" variant="text">HR Manager</Button>
-            </Link>
+            <Button color="inherit" variant="text">
+              <Link to="/" className="navlink">
+                HR Manager
+              </Link>
+            </Button>
           </div>
 
           <div className="d-flex justify-content-end w-100">

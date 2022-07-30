@@ -10,4 +10,9 @@ const modalBoxStyle = {
     p: 4,
   };
 
-export {modalBoxStyle};
+const resourcePageCardHeight = {
+    height: "40rem",
+    overflowY: "scroll"
+}
+
+export {modalBoxStyle, resourcePageCardHeight};

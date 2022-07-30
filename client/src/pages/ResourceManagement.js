@@ -1,7 +1,9 @@
 import React from "react";
-import UserTable from "../components/UserTable";
+import UserTable from "../components/tables/UserTable";
 import Filter from "../components/Filter";
 import { getAllUsers } from "../api/mockGetAllUsers";
+import CardWrap from "../components/CardWrap";
+import { resourcePageCardHeight } from "../styles/mdsStyles/mdsStyles";
 
 const ResourceManagement = () => {
   const rowData = getAllUsers;
@@ -10,10 +12,14 @@ const ResourceManagement = () => {
     <>
       <div className="row">
         <div className="col-3">
-          <Filter />
+          <CardWrap sxOptions={resourcePageCardHeight} title="Filter Users">
+            <Filter />
+          </CardWrap>
         </div>
         <div className="col-9">
-          <UserTable rowData={rowData} />
+          <CardWrap sxOptions={resourcePageCardHeight} title="List of Users">
+            <UserTable rowData={rowData} />
+          </CardWrap>
         </div>
       </div>
     </>

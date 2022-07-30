@@ -1,6 +1,6 @@
 export const getAllUsers = [
   {
-    id: 1,
+    id: 0,
     firstName: "Ada",
     lastName: "Lovelace",
     annualSalary: 90000,
@@ -12,7 +12,7 @@ export const getAllUsers = [
     userType: "employee",
   },
   {
-    id: 2,
+    id: 1,
     firstName: "Grace",
     lastName: "Hopper",
     annualSalary: 90000,
@@ -24,7 +24,7 @@ export const getAllUsers = [
     userType: "employee",
   },
   {
-    id: 3,
+    id: 2,
     firstName: "Margaret",
     lastName: "Hamilton",
     annualSalary: 90000,
@@ -36,7 +36,7 @@ export const getAllUsers = [
     userType: "consultant",
   },
   {
-    id: 4,
+    id: 3,
     firstName: "Joan",
     lastName: "Clarke",
     annualSalary: 90000,

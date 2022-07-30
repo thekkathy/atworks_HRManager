@@ -1,6 +1,6 @@
 export const mockGetAddress = [
   {
-    id: 1,
+    id: 0,
     userID: 1,
     addrLn1: "1234 Street St",
     addrLn2: "",
@@ -12,7 +12,7 @@ export const mockGetAddress = [
     country: "US",
   },
   {
-    id: 2,
+    id: 1,
     userID: 1,
     addrLn1: "1111 Lane St",
     addrLn2: "2222 Lane St",

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { calculateHourlyRate } from "../../utils/calculateHourlyRate";
 
-const AddPersonalInfo = () => {
+const PersonalInfoForm = ({addMode=true}) => {
     const [hourlyRate, sethourlyRate] = useState(0);
     const onAnnualRateChange = (e) => {
         e.preventDefault();
@@ -120,4 +120,4 @@ const AddPersonalInfo = () => {
   );
 };
 
-export default AddPersonalInfo;
+export default PersonalInfoForm;
