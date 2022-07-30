@@ -17,7 +17,7 @@ const App = () => {
           </Route>
           <Route path="/resource" element={<Outlet />}>
             <Route path="" element={<ResourceManagement/>}/>
-            <Route path="addUser" element={<UserTabBar addUser={true}/>} />
+            <Route path="addUser" element={<UserTabBar addMode={true}/>} />
           </Route>
         </Routes>
       </div>
