@@ -1,0 +1,26 @@
+export const mockGetAddress = [
+  {
+    id: 1,
+    userID: 1,
+    addrLn1: "1234 Street St",
+    addrLn2: "",
+    addrName: "Warehouse",
+    addrType: "main",
+    city: "City",
+    stateCode: "VA",
+    postalCode: "11011",
+    country: "US",
+  },
+  {
+    id: 2,
+    userID: 1,
+    addrLn1: "1111 Lane St",
+    addrLn2: "2222 Lane St",
+    addrName: "Headquarters",
+    addrType: "main",
+    city: "City",
+    stateCode: "VA",
+    postalCode: "11122",
+    country: "US",
+  },
+];

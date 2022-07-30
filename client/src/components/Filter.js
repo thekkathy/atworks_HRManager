@@ -9,7 +9,7 @@ import React from "react";
 
 const Filter = () => {
   return (
-    <>
+    <div className="my-2">
       <Card>
         <CardContent>
           <div className="row m-2">
@@ -29,14 +29,14 @@ const Filter = () => {
               />
             </div>
           </div>
-          <div className="row p-4">
-            <Button variant="outlined" color="primary" sx={{maxWidth: "25%"}}>
+          <div className="row p-4 w-100 h-100">
+            <Button variant="outlined" color="primary" sx={{maxWidth: "50%"}}>
               Search
             </Button>
           </div>
         </CardContent>
       </Card>
-    </>
+    </div>
   );
 };
 

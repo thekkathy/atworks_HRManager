@@ -8,8 +8,14 @@ const ResourceManagement = () => {
 
   return (
     <>
-      <Filter />
-      <UserTable rowData={rowData} />
+      <div className="row">
+        <div className="col-3">
+          <Filter />
+        </div>
+        <div className="col-9">
+          <UserTable rowData={rowData} />
+        </div>
+      </div>
     </>
   );
 };
