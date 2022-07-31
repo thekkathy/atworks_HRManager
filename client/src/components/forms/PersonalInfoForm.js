@@ -1,5 +1,6 @@
 import { Box, Button, MenuItem, TextField } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import { addUser, retrieveUser } from "../../api/apiRoutes";
 import { calculateHourlyRate } from "../../utils/calculateHourlyRate";
@@ -18,8 +19,23 @@ const PersonalInfoForm = () => {
     setData({ ...data, ...{ [key]: value } });
   };
 
+  const [user, setUser] = useState({});
+  const { register, handleSubmit, reset } = useForm({ defaultValues: user });
+  useEffect(() => {
+    const getUser = async () => {
+      const currUser = await retrieveUser(userId);
+      if (currUser) {
+        setUser(currUser);
+        reset({...currUser, hourlyRate:calculateHourlyRate(currUser.annualSalary)});
+        console.log(currUser);
+      }
+    };
+    if (userId) {
+      getUser();
+    }
+  }, []);
+
   const onSubmit = (e) => {
-    alert("personal form submit");
     e.preventDefault();
     console.log(data);
     addUser(data);
@@ -37,7 +53,6 @@ const PersonalInfoForm = () => {
       >
         <form
           onSubmit={(e) => {
-            alert("onsubmit");
             onSubmit(e);
           }}
         >
@@ -55,7 +70,12 @@ const PersonalInfoForm = () => {
                 maxLength: 20,
                 pattern: "[A-Za-z]+",
               }}
-              //defaultValue={userId ? CurrentUser[0]?.firstName : null}
+              {...register("firstName", {
+                required: true,
+                minLength: 1,
+                maxLength: 20,
+                pattern: /[A-Za-z]+/,
+              })}
               onChange={(e) => {
                 handleChange("firstName", e.target.value);
               }}
@@ -73,7 +93,12 @@ const PersonalInfoForm = () => {
                 maxLength: 20,
                 pattern: "[A-Za-z]+",
               }}
-              //defaultValue={userId ? CurrentUser[0]?.lastName : null}
+              {...register("lastName", {
+                required: true,
+                minLength: 1,
+                maxLength: 20,
+                pattern: /[A-Za-z]+/,
+              })}
               onChange={(e) => {
                 handleChange("lastName", e.target.value);
               }}
@@ -88,7 +113,11 @@ const PersonalInfoForm = () => {
                 shrink: true,
               }}
               inputProps={{ maxLength: 50 }}
-              //defaultValue={userId ? CurrentUser[0]?.email : null}
+              {...register("email", {
+                required: true,
+                minLength: 1,
+                maxLength: 50,
+              })}
               onChange={(e) => {
                 handleChange("email", e.target.value);
               }}
@@ -105,9 +134,14 @@ const PersonalInfoForm = () => {
               inputProps={{
                 minLength: 1,
                 maxLength: 50,
-                pattern: "[A-Za-z0-9]+",
+                pattern: "[A-Za-z0-9 ]+",
               }}
-              //defaultValue={userId ? CurrentUser[0]?.userType : null}
+              {...register("userType", {
+                required: true,
+                minLength: 1,
+                maxLength: 50,
+                pattern: /[A-Za-z0-9 ]+/,
+              })}
               onChange={(e) => {
                 handleChange("userType", e.target.value);
               }}
@@ -127,6 +161,9 @@ const PersonalInfoForm = () => {
               InputLabelProps={{
                 shrink: true,
               }}
+              {...register("dateOfBirth", {
+                required: true,
+              })}
               onChange={(e) => {
                 handleChange("dob", e.target.value);
               }}
@@ -140,7 +177,9 @@ const PersonalInfoForm = () => {
               InputLabelProps={{
                 shrink: true,
               }}
-              //defaultValue={userId ? CurrentUser[0]?.gender : null}
+              {...register("gender", {
+                required: true,
+              })}
               onChange={(e) => {
                 handleChange("gender", e.target.value);
               }}
@@ -168,7 +207,12 @@ const PersonalInfoForm = () => {
                 maxLength: 10,
                 pattern: "[0-9]{10}",
               }}
-              //defaultValue={userId ? CurrentUser[0]?.mobilePhone : null}
+              {...register("mobilePhone", {
+                required: true,
+                minLength: 10,
+                maxLength: 10,
+                pattern: /[0-9]{10}/,
+              })}
               onChange={(e) => {
                 handleChange("mobile", e.target.value);
               }}
@@ -188,9 +232,14 @@ const PersonalInfoForm = () => {
                 pattern: "[0-9]+.[0-9]{0,2}",
                 step: "0.01",
               }}
-              //defaultValue={userId ? CurrentUser[0]?.annualSalary : null}
+              {...register("annualSalary", {
+                required: true,
+                minLength: 1,
+                maxLength: 20,
+                pattern: /[0-9]+.[0-9]{0,2}/,
+              })}
               onChange={(e) => {
-                handleChange("salary", e.target.value);
+                handleChange("annulaSalary", e.target.value);
                 onAnnualRateChange(e);
               }}
             />
@@ -201,7 +250,7 @@ const PersonalInfoForm = () => {
               InputProps={{
                 readOnly: true,
               }}
-              //defaultValue={userId ? calculateHourlyRate(CurrentUser[0]?.annualSalary) : 0}
+              {...register("hourlyRate")}
               value={hourlyRate}
             />
           </div>

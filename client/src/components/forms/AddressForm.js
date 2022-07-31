@@ -36,7 +36,7 @@ const AddressForm = ({ handleClose, addMode = true }) => {
             "& .MuiTextField-root": { m: 1, width: "25ch" },
           }}
         >
-          <form onSubmit={(e) => handleSubmit(onSubmit)}>
+          <form>
             <Typography
               id="modal-modal-title"
               variant="h6"
@@ -215,7 +215,7 @@ const AddressForm = ({ handleClose, addMode = true }) => {
               />
             </div>
             <div className="mt-4 d-flex">
-              <Button variant="contained" color="primary" type="submit">
+              <Button variant="contained" color="primary" type="submit" onClick={()=>handleSubmit(onSubmit)}>
                 Submit
               </Button>
               <div className="mx-2">
