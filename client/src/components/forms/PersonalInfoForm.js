@@ -2,7 +2,6 @@ import { Box, Button, MenuItem, TextField } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { addUser, retrieveUser } from "../../api/apiRoutes";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { calculateHourlyRate } from "../../utils/calculateHourlyRate";
 
 const PersonalInfoForm = () => {
@@ -213,7 +212,7 @@ const PersonalInfoForm = () => {
               type="submit"
               id="submitButton"
             >
-              Go
+              Submit
             </Button>
           </div>
         </form>

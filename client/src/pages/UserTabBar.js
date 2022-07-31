@@ -7,7 +7,7 @@ import TabPanel from "../components/TabPanel";
 import PersonalInfoForm from "../components/forms/PersonalInfoForm";
 import "../styles/UserTabBar.css";
 import { CurrentUserContext } from "../context/CurrentUserContext";
-import { retrieveUser } from "../api/apiRoutes";
+import { getUserAddress, retrieveUser } from "../api/apiRoutes";
 
 const UserTabBar = ({ addMode }) => {
 
@@ -32,7 +32,18 @@ const UserTabBar = ({ addMode }) => {
     setValue(newValue);
   };
 
-  const addresses = mockGetAddress;
+  const [userAddresses, setUserAddresses] = useState([]);
+  useEffect(() => {
+    const getAddress = async() => {
+      const addresses = await getUserAddress(userId);
+      if(addresses){
+        setUserAddresses(addresses);
+      }
+    }
+    if(userId){
+      getAddress();
+    }
+  }, [])
   return (
     <div>
       <div className="row">
@@ -71,7 +82,7 @@ const UserTabBar = ({ addMode }) => {
           <PersonalInfoForm />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <AddressTable rowData={addresses} />
+          <AddressTable rowData={userAddresses}/>
         </TabPanel>
         <TabPanel value={value} index={2}>
           Payment

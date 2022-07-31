@@ -8,13 +8,15 @@ import {
   TableBody,
   Button,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getUserAddress } from "../../api/apiRoutes";
 import AddressFormModal from "../modals/AddressFormModal";
 
 const AddressTable = ({ rowData }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   return (
     <div>
       <div className="mb-4">
@@ -49,14 +51,14 @@ const AddressTable = ({ rowData }) => {
             {rowData.map((row) => {
               return (
                 <TableRow>
-                  <TableCell>{row.addrName}</TableCell>
-                  <TableCell>{row.addrType.toUpperCase()}</TableCell>
+                  <TableCell>{row?.addrName}</TableCell>
+                  <TableCell>{row?.addrType.toUpperCase()}</TableCell>
                   <TableCell>
-                    {row.addrLn1}
-                    {row.addrLn2.length && `, ${row.addrLn2}`}
+                    {row?.addrLn1}
+                    {row?.addrLn2?.length && `, ${row?.addrLn2}`}
                   </TableCell>
                   <TableCell>
-                    {row.city}, {row.stateCode}, {row.country}
+                    {row?.city}, {row?.stateCode}, {row?.country}
                   </TableCell>
                 </TableRow>
               );
