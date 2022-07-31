@@ -1,16 +1,32 @@
 import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { mockGetAddress } from "../api/mockGetAddress";
 import AddressTable from "../components/tables/AddressTable";
 import TabPanel from "../components/TabPanel";
 import PersonalInfoForm from "../components/forms/PersonalInfoForm";
 import "../styles/UserTabBar.css";
+import { CurrentUserContext } from "../context/CurrentUserContext";
+import { retrieveUser } from "../api/apiRoutes";
 
 const UserTabBar = ({ addMode }) => {
-  const [value, setValue] = React.useState(0);
 
-  const { userId } = useParams();
+  const {userId} = useParams();
+
+  const [value, setValue] = React.useState(0);
+  const { CurrentUser, updateCurrentUser } = useContext(CurrentUserContext);
+
+  useEffect(() => {
+    if (!addMode) {
+      const getUser = async () => {
+        const user = await retrieveUser(userId);
+        if (user) {
+          updateCurrentUser([user]);
+        }
+      };
+      getUser();
+    }
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -28,7 +44,7 @@ const UserTabBar = ({ addMode }) => {
               </Typography>
             ) : (
               <Typography variant="h5" component="h1">
-                Edit User {userId}
+                Edit {CurrentUser[0]?.firstName} {CurrentUser[0]?.lastName}'s Information
               </Typography>
             )}
           </div>

@@ -1,13 +1,16 @@
 import React from "react";
 import FiltersProvider from "../context/FiltersContext";
 import UsersProvider from "../context/UsersContext";
+import  CurrentUsersContext from "../context/CurrentUserContext";
 
 const ContextWrapper = ({ children }) => {
   return (
     <>
-      <FiltersProvider>
-        <UsersProvider>{children}</UsersProvider>
-      </FiltersProvider>
+      <CurrentUsersContext>
+        <FiltersProvider>
+          <UsersProvider>{children}</UsersProvider>
+        </FiltersProvider>
+      </CurrentUsersContext>
     </>
   );
 };

@@ -1,24 +1,30 @@
 import { Box, Button, MenuItem, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useParams } from "react-router";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { calculateHourlyRate } from "../../utils/calculateHourlyRate";
 
-const PersonalInfoForm = ({ addMode = true }) => {
+const PersonalInfoForm = () => {
   const [hourlyRate, sethourlyRate] = useState(0);
   const [data, setData] = useState([]);
+
+  const { userId } = useParams();
+
+  const { CurrentUser } = useContext(CurrentUserContext);
 
   const onAnnualRateChange = (e) => {
     sethourlyRate(calculateHourlyRate(e.target.value));
   };
 
   const handleChange = (key, value) => {
-    setData({...data, ...{[key]:value}});
-  }
+    setData({ ...data, ...{ [key]: value } });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(data)
+    console.log(data);
   };
-  
+
   return (
     <>
       <div>
@@ -45,7 +51,10 @@ const PersonalInfoForm = ({ addMode = true }) => {
                   maxLength: 20,
                   pattern: "[A-Za-z]+",
                 }}
-                onChange={(e) => {handleChange("firstName", e.target.value)}}
+                defaultValue={userId ? CurrentUser[0]?.firstName : null}
+                onChange={(e) => {
+                  handleChange("firstName", e.target.value);
+                }}
               />
               <TextField
                 required
@@ -60,7 +69,10 @@ const PersonalInfoForm = ({ addMode = true }) => {
                   maxLength: 20,
                   pattern: "[A-Za-z]+",
                 }}
-                onChange={(e) => {handleChange("lastName", e.target.value)}}
+                defaultValue={userId ? CurrentUser[0]?.lastName : null}
+                onChange={(e) => {
+                  handleChange("lastName", e.target.value);
+                }}
               />
               <TextField
                 required
@@ -72,7 +84,10 @@ const PersonalInfoForm = ({ addMode = true }) => {
                   shrink: true,
                 }}
                 inputProps={{ maxLength: 50 }}
-                onChange={(e) => {handleChange("email", e.target.value)}}
+                defaultValue={userId ? CurrentUser[0]?.email : null}
+                onChange={(e) => {
+                  handleChange("email", e.target.value);
+                }}
               />
               <TextField
                 required
@@ -88,7 +103,10 @@ const PersonalInfoForm = ({ addMode = true }) => {
                   maxLength: 50,
                   pattern: "[A-Za-z0-9]+",
                 }}
-                onChange={(e) => {handleChange("userType", e.target.value)}}
+                defaultValue={userId ? CurrentUser[0]?.userType : null}
+                onChange={(e) => {
+                  handleChange("userType", e.target.value);
+                }}
               >
                 <MenuItem key={"CONSULTANT"} value={"CONSULTANT"}>
                   {"CONSULTANT"}
@@ -105,7 +123,9 @@ const PersonalInfoForm = ({ addMode = true }) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {handleChange("dob", e.target.value)}}
+                onChange={(e) => {
+                  handleChange("dob", e.target.value);
+                }}
               />
               <TextField
                 required
@@ -116,7 +136,10 @@ const PersonalInfoForm = ({ addMode = true }) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={(e) => {handleChange("gender", e.target.value)}}
+                defaultValue={userId ? CurrentUser[0]?.gender : null}
+                onChange={(e) => {
+                  handleChange("gender", e.target.value);
+                }}
               >
                 <MenuItem key={"FEMALE"} value={"FEMALE"}>
                   {"FEMALE"}
@@ -133,12 +156,18 @@ const PersonalInfoForm = ({ addMode = true }) => {
                 id="mobile"
                 helperText={"Please enter exactly 10 numbers"}
                 label="Mobile"
-                type="text"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                inputProps={{ minLength: 10, maxLength: 10, pattern: "[0-9]{10}" }}
-                onChange={(e) => {handleChange("mobile", e.target.value)}}
+                inputProps={{
+                  minLength: 10,
+                  maxLength: 10,
+                  pattern: "[0-9]{10}",
+                }}
+                defaultValue={userId ? CurrentUser[0]?.mobilePhone : null}
+                onChange={(e) => {
+                  handleChange("mobile", e.target.value);
+                }}
               />
               <TextField
                 required
@@ -149,8 +178,17 @@ const PersonalInfoForm = ({ addMode = true }) => {
                   shrink: true,
                 }}
                 type="number"
-                inputProps={{ minLength: 1, maxLength: 20, pattern: "[0-9]+\.[0-9]{0,2}", step:"0.01" }}
-                onChange={(e) => {handleChange("salary", e.target.value); onAnnualRateChange(e)}}
+                inputProps={{
+                  minLength: 1,
+                  maxLength: 20,
+                  pattern: "[0-9]+.[0-9]{0,2}",
+                  step: "0.01",
+                }}
+                defaultValue={userId ? CurrentUser[0]?.annualSalary : null}
+                onChange={(e) => {
+                  handleChange("salary", e.target.value);
+                  onAnnualRateChange(e);
+                }}
               />
               <TextField
                 id="hourlyRate"
@@ -159,9 +197,8 @@ const PersonalInfoForm = ({ addMode = true }) => {
                 InputProps={{
                   readOnly: true,
                 }}
-                defaultValue={0}
+                defaultValue={userId ? calculateHourlyRate(CurrentUser[0]?.annualSalary) : 0}
                 value={hourlyRate}
-                onChange={(e) => {handleChange("hourlyRate", calculateHourlyRate(e.target.value))}}
               />
             </div>
             <div className="mt-4 d-flex">

@@ -17,7 +17,8 @@ import Moment from "react-moment";
 import { useNavigate } from "react-router";
 import UserModal from "../modals/UserModal";
 import {UsersContext} from "../../context/UsersContext";
-import { retrieveAllUsers } from "../../api/apiRoutes";
+import { retrieveAllUsers, retrieveUser } from "../../api/apiRoutes";
+import {CurrentUserContext} from "../../context/CurrentUserContext";
 
 const UserTable = ({ rowData }) => {
   const [open, setOpen] = useState(false);
@@ -27,16 +28,17 @@ const UserTable = ({ rowData }) => {
   const [selectedUser, setselectedUser] = useState(0);
 
   const {updateUsers} = useContext(UsersContext);
+  const { updateCurrentUser } = useContext(CurrentUserContext);
 
   const navigate = useNavigate();
 
   const getAllUsers = async () => {
       const allUsers = await retrieveAllUsers();
       if (allUsers) {
-        // console.log(JSON.stringify(allUsers));
         updateUsers(allUsers);
       }
   };
+
 
   return (
     <>
@@ -103,7 +105,7 @@ const UserTable = ({ rowData }) => {
                           onClick={() => {
                             console.log("update", row.id);
                             setselectedUser(idx);
-                            navigate(row.id);
+                            navigate(`${row.id}`);
                           }}
                         >
                           <EditIcon />
