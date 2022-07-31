@@ -172,7 +172,7 @@ const PersonalInfoForm = () => {
                 required: true,
               })}
               onChange={(e) => {
-                handleChange("dob", e.target.value);
+                handleChange("dateOfBirth", e.target.value);
               }}
             />
             <TextField
@@ -221,7 +221,7 @@ const PersonalInfoForm = () => {
                 pattern: /[0-9]{10}/,
               })}
               onChange={(e) => {
-                handleChange("mobile", e.target.value);
+                handleChange("mobilePhone", e.target.value);
               }}
             />
             <TextField
@@ -246,7 +246,7 @@ const PersonalInfoForm = () => {
                 pattern: /[0-9]+.[0-9]{0,2}/,
               })}
               onChange={(e) => {
-                handleChange("annulaSalary", e.target.value);
+                handleChange("annualSalary", e.target.value);
                 onAnnualRateChange(e);
               }}
             />
