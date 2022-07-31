@@ -1,19 +1,20 @@
 import { Box, TextField, Button, MenuItem, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useParams } from "react-router";
+import { addUserAddress } from "../../api/apiRoutes";
 
 const AddressForm = ({ handleClose, addMode = true }) => {
   const [addressType, setaddressType] = React.useState("");
   const [data, setData] = useState([]);
 
+  const { userId } = useParams();
+
   const handleAddrTypeChange = (event) => {
     setaddressType(event.target.value);
   };
 
-  const {
-    register,
-    handleSubmit,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const handleChange = (key, value) => {
     setData({ ...data, ...{ [key]: value } });
@@ -22,6 +23,7 @@ const AddressForm = ({ handleClose, addMode = true }) => {
   const onSubmit = (event) => {
     event.preventDefault();
     console.log(data);
+    addUserAddress(userId, data);
     handleClose();
   };
 
@@ -215,7 +217,12 @@ const AddressForm = ({ handleClose, addMode = true }) => {
               />
             </div>
             <div className="mt-4 d-flex">
-              <Button variant="contained" color="primary" type="submit" onClick={()=>handleSubmit(onSubmit)}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                onClick={() => handleSubmit(onSubmit)}
+              >
                 Submit
               </Button>
               <div className="mx-2">

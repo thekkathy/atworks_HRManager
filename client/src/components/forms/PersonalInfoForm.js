@@ -2,7 +2,7 @@ import { Box, Button, MenuItem, TextField } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
-import { addUser, retrieveUser } from "../../api/apiRoutes";
+import { addUser, retrieveUser, updateUser } from "../../api/apiRoutes";
 import { calculateHourlyRate } from "../../utils/calculateHourlyRate";
 
 const PersonalInfoForm = () => {
@@ -26,7 +26,10 @@ const PersonalInfoForm = () => {
       const currUser = await retrieveUser(userId);
       if (currUser) {
         setUser(currUser);
-        reset({...currUser, hourlyRate:calculateHourlyRate(currUser.annualSalary)});
+        reset({
+          ...currUser,
+          hourlyRate: calculateHourlyRate(currUser.annualSalary),
+        });
         console.log(currUser);
       }
     };
@@ -38,7 +41,11 @@ const PersonalInfoForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log(data);
-    addUser(data);
+    if (userId) {
+      updateUser(data, userId);
+    } else {
+      addUser(data);
+    }
   };
 
   return (
