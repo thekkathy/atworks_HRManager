@@ -68,7 +68,7 @@ const UserTabBar = ({ addMode }) => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <PersonalInfoForm addMode={addMode} />
+          <PersonalInfoForm />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <AddressTable rowData={addresses} />

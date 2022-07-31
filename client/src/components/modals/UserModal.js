@@ -1,8 +1,10 @@
+import { deleteUser } from "../../api/apiRoutes";
+
 const { Modal, Box, Typography, Button } = require("@mui/material");
 const React = require("react");
 const { modalBoxStyle } = require("../../styles/mdsStyles/mdsStyles");
 
-const UserModal = ({open, handleClose, fullName=""}) => {
+const UserModal = ({open, handleClose, fullName="", userId=""}) => {
     return (<Modal
       open={open}
       onClose={handleClose}
@@ -25,6 +27,7 @@ const UserModal = ({open, handleClose, fullName=""}) => {
           variant="contained"
           color="error"
           onClick={() => {
+            deleteUser(userId);
             handleClose();
             console.log(open);
           }}

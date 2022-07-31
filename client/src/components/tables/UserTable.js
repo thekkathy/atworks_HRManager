@@ -16,9 +16,13 @@ import React, { useContext, useState } from "react";
 import Moment from "react-moment";
 import { useNavigate } from "react-router";
 import UserModal from "../modals/UserModal";
-import {UsersContext} from "../../context/UsersContext";
-import { retrieveAllUsers, retrieveUser } from "../../api/apiRoutes";
-import {CurrentUserContext} from "../../context/CurrentUserContext";
+import { UsersContext } from "../../context/UsersContext";
+import {
+  deleteUser,
+  retrieveAllUsers,
+  retrieveUser,
+} from "../../api/apiRoutes";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const UserTable = ({ rowData }) => {
   const [open, setOpen] = useState(false);
@@ -27,18 +31,17 @@ const UserTable = ({ rowData }) => {
 
   const [selectedUser, setselectedUser] = useState(0);
 
-  const {updateUsers} = useContext(UsersContext);
+  const { updateUsers } = useContext(UsersContext);
   const { updateCurrentUser } = useContext(CurrentUserContext);
 
   const navigate = useNavigate();
 
   const getAllUsers = async () => {
-      const allUsers = await retrieveAllUsers();
-      if (allUsers) {
-        updateUsers(allUsers);
-      }
+    const allUsers = await retrieveAllUsers();
+    if (allUsers) {
+      updateUsers(allUsers);
+    }
   };
-
 
   return (
     <>
@@ -125,6 +128,7 @@ const UserTable = ({ rowData }) => {
                           fullName={
                             rowData ? rowData[selectedUser].fullName : ""
                           }
+                          userId={rowData ? rowData[selectedUser].id : ""}
                         />
                       </TableCell>
                     </TableRow>
