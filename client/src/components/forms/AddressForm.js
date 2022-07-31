@@ -1,9 +1,10 @@
 import { Box, TextField, Button, MenuItem, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const AddressForm = ({ handleClose, addMode = true }) => {
   const [addressType, setaddressType] = React.useState("");
+  const [data, setData] = useState([]);
 
   const handleAddrTypeChange = (event) => {
     setaddressType(event.target.value);
@@ -12,16 +13,16 @@ const AddressForm = ({ handleClose, addMode = true }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm();
 
-  const onSubmit = (event, data) => {
+  const handleChange = (key, value) => {
+    setData({ ...data, ...{ [key]: value } });
+  };
+
+  const onSubmit = (event) => {
     event.preventDefault();
-    alert(JSON.stringify(errors));
-    if (errors !== undefined) {
-      console.log(errors);
-      handleClose();
-    }
+    console.log(data);
+    handleClose();
   };
 
   return (
@@ -35,7 +36,7 @@ const AddressForm = ({ handleClose, addMode = true }) => {
             "& .MuiTextField-root": { m: 1, width: "25ch" },
           }}
         >
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={(e) => handleSubmit(onSubmit)}>
             <Typography
               id="modal-modal-title"
               variant="h6"
@@ -66,6 +67,9 @@ const AddressForm = ({ handleClose, addMode = true }) => {
                   maxLength: 20,
                   pattern: /[A-Za-z0-9 ]+/,
                 })}
+                onChange={(e) => {
+                  handleChange("addrName", e.target.value);
+                }}
               />
               <TextField
                 fullWidth
@@ -75,11 +79,13 @@ const AddressForm = ({ handleClose, addMode = true }) => {
                 placeholder="Address Type"
                 select
                 value={addressType}
-                onChange={handleAddrTypeChange}
                 InputLabelProps={{
                   shrink: true,
                 }}
-
+                onChange={(e) => {
+                  handleChange("addrType", e.target.value);
+                  handleAddrTypeChange(e);
+                }}
               >
                 <MenuItem key={"BILLING"} value={"BILLING"}>
                   {"BILLING"}
@@ -105,6 +111,9 @@ const AddressForm = ({ handleClose, addMode = true }) => {
                   maxlength: 200,
                   pattern: "[A-Za-z0-9 ]+",
                 }}
+                onChange={(e) => {
+                  handleChange("addrLn1", e.target.value);
+                }}
                 {...register("addrLn1", {
                   required: true,
                   minLength: 3,
@@ -123,6 +132,9 @@ const AddressForm = ({ handleClose, addMode = true }) => {
                 inputProps={{
                   maxlength: 200,
                   pattern: "[A-Za-z0-9 ]+",
+                }}
+                onChange={(e) => {
+                  handleChange("addrLn2", e.target.value);
                 }}
                 {...register("addrLn1", {
                   maxLength: 200,
@@ -149,6 +161,9 @@ const AddressForm = ({ handleClose, addMode = true }) => {
                   maxLength: 100,
                   pattern: /[A-Za-z ]+/,
                 })}
+                onChange={(e) => {
+                  handleChange("city", e.target.value);
+                }}
               />
               <TextField
                 fullWidth
@@ -164,12 +179,15 @@ const AddressForm = ({ handleClose, addMode = true }) => {
                   maxlength: 50,
                   pattern: "[A-Za-z ]+",
                 }}
-                {...register("city", {
+                {...register("state", {
                   required: true,
                   minLength: 1,
                   maxLength: 50,
                   pattern: /[A-Za-z ]+/,
                 })}
+                onChange={(e) => {
+                  handleChange("state", e.target.value);
+                }}
               />
               <TextField
                 fullWidth
@@ -185,24 +203,28 @@ const AddressForm = ({ handleClose, addMode = true }) => {
                   maxlength: 200,
                   pattern: "[A-Za-z ]+",
                 }}
-                {...register("city", {
+                {...register("country", {
                   required: true,
                   minLength: 1,
                   maxLength: 200,
                   pattern: /[A-Za-z ]+/,
                 })}
+                onChange={(e) => {
+                  handleChange("country", e.target.value);
+                }}
               />
             </div>
             <div className="mt-4 d-flex">
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-              >
+              <Button variant="contained" color="primary" type="submit">
                 Submit
               </Button>
               <div className="mx-2">
-                <Button variant="outlined" color="info" type="submit" onClick={handleClose}>
+                <Button
+                  variant="outlined"
+                  color="info"
+                  type="submit"
+                  onClick={handleClose}
+                >
                   Cancel
                 </Button>
               </div>

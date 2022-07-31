@@ -4,17 +4,21 @@ import { calculateHourlyRate } from "../../utils/calculateHourlyRate";
 
 const PersonalInfoForm = ({ addMode = true }) => {
   const [hourlyRate, sethourlyRate] = useState(0);
+  const [data, setData] = useState([]);
 
   const onAnnualRateChange = (e) => {
-    e.preventDefault();
     sethourlyRate(calculateHourlyRate(e.target.value));
   };
 
+  const handleChange = (key, value) => {
+    setData({...data, ...{[key]:value}});
+  }
 
-
-  const onSubmit = (data) => {
-    alert(JSON.stringify(data));
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(data)
   };
+  
   return (
     <>
       <div>
@@ -37,10 +41,11 @@ const PersonalInfoForm = ({ addMode = true }) => {
                   shrink: true,
                 }}
                 inputProps={{
-                  minlength: 1,
-                  maxlength: 20,
+                  minLength: 1,
+                  maxLength: 20,
                   pattern: "[A-Za-z]+",
                 }}
+                onChange={(e) => {handleChange("firstName", e.target.value)}}
               />
               <TextField
                 required
@@ -51,10 +56,11 @@ const PersonalInfoForm = ({ addMode = true }) => {
                   shrink: true,
                 }}
                 inputProps={{
-                  minlength: 1,
-                  maxlength: 20,
+                  minLength: 1,
+                  maxLength: 20,
                   pattern: "[A-Za-z]+",
                 }}
+                onChange={(e) => {handleChange("lastName", e.target.value)}}
               />
               <TextField
                 required
@@ -65,7 +71,8 @@ const PersonalInfoForm = ({ addMode = true }) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
-                inputProps={{ maxlength: 50 }}
+                inputProps={{ maxLength: 50 }}
+                onChange={(e) => {handleChange("email", e.target.value)}}
               />
               <TextField
                 required
@@ -77,10 +84,11 @@ const PersonalInfoForm = ({ addMode = true }) => {
                   shrink: true,
                 }}
                 inputProps={{
-                  minlength: 1,
-                  maxlength: 50,
+                  minLength: 1,
+                  maxLength: 50,
                   pattern: "[A-Za-z0-9]+",
                 }}
+                onChange={(e) => {handleChange("userType", e.target.value)}}
               >
                 <MenuItem key={"CONSULTANT"} value={"CONSULTANT"}>
                   {"CONSULTANT"}
@@ -97,6 +105,7 @@ const PersonalInfoForm = ({ addMode = true }) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                onChange={(e) => {handleChange("dob", e.target.value)}}
               />
               <TextField
                 required
@@ -107,6 +116,7 @@ const PersonalInfoForm = ({ addMode = true }) => {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                onChange={(e) => {handleChange("gender", e.target.value)}}
               >
                 <MenuItem key={"FEMALE"} value={"FEMALE"}>
                   {"FEMALE"}
@@ -121,24 +131,26 @@ const PersonalInfoForm = ({ addMode = true }) => {
               <TextField
                 required
                 id="mobile"
-                helperText={"Please enter exactly 7 numbers"}
+                helperText={"Please enter exactly 10 numbers"}
                 label="Mobile"
                 type="text"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                inputProps={{ minlength: 7, maxlength: 7, pattern: "[0-9]{7}" }}
+                inputProps={{ minLength: 10, maxLength: 10, pattern: "[0-9]{10}" }}
+                onChange={(e) => {handleChange("mobile", e.target.value)}}
               />
               <TextField
                 required
+                helperText={"Please enter salary up to two decimal points"}
                 id="salary"
                 label="Annual Salary"
-                type="number"
                 InputLabelProps={{
                   shrink: true,
                 }}
-                onChange={onAnnualRateChange}
-                inputProps={{ minlength: 1, maxlength: 20, pattern: "[0-9]+" }}
+                type="number"
+                inputProps={{ minLength: 1, maxLength: 20, pattern: "[0-9]+\.[0-9]{0,2}", step:"0.01" }}
+                onChange={(e) => {handleChange("salary", e.target.value); onAnnualRateChange(e)}}
               />
               <TextField
                 id="hourlyRate"
@@ -149,6 +161,7 @@ const PersonalInfoForm = ({ addMode = true }) => {
                 }}
                 defaultValue={0}
                 value={hourlyRate}
+                onChange={(e) => {handleChange("hourlyRate", calculateHourlyRate(e.target.value))}}
               />
             </div>
             <div className="mt-4 d-flex">
