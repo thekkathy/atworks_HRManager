@@ -1,12 +1,8 @@
 import {
   Button,
-  Card,
-  CardContent,
   TextField,
-  Typography,
 } from "@mui/material";
 import React from "react";
-import { resourcePageCardHeight } from "../styles/mdsStyles/mdsStyles";
 
 const Filter = () => {
   return (

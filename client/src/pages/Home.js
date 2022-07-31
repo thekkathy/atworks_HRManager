@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const [openHrMenu, setopenHrMenu] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
   const handleClick = (event) => {
-    setopenHrMenu(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    setopenHrMenu(null);
+    setAnchorEl(null);
   };
   return (
     <>
@@ -18,24 +19,19 @@ const Home = () => {
             <Button variant="outlined" color="primary" onClick={handleClick}>
               Human Resources
             </Button>
-            {openHrMenu ? (
-              <Menu
-                id="hrmenu"
-                open={openHrMenu}
-                onClose={handleClose}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left",
-                }}
-              >
-                <MenuItem>Benefits</MenuItem>
-                <MenuItem>Recruit to Hire</MenuItem>
-                <MenuItem>
-                  <Link to="/resource">Resource Management</Link>
-                </MenuItem>
-                <MenuItem>Offer Letter</MenuItem>
-              </Menu>
-            ) : null}
+            <Menu
+              id="hrmenu"
+              open={open}
+              onClose={handleClose}
+              anchorEl={anchorEl}
+            >
+              <MenuItem>Benefits</MenuItem>
+              <MenuItem>Recruit to Hire</MenuItem>
+              <MenuItem>
+                <Link to="/resource">Resource Management</Link>
+              </MenuItem>
+              <MenuItem>Offer Letter</MenuItem>
+            </Menu>
           </div>
           <div className="col m-4">
             <Button variant="outlined" color="primary">

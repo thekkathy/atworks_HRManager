@@ -5,3 +5,11 @@
 .navlink:hover{
     cursor: pointer;
 }
+
+.navlink a{
+    color: white;
+}
+
+.navlink a:hover{
+    color: white;
+}

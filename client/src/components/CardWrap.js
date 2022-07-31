@@ -6,7 +6,7 @@ const CardWrap = ({ children, sxOptions = {}, title = "" }) => {
     <Card sx={sxOptions}>
       <CardContent>
         {title && <div className="row m-2">
-          <Typography variant="h6" component="div">
+          <Typography variant="h6" component="h1">
             {title}
           </Typography>
         </div>}

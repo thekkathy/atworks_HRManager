@@ -75,8 +75,9 @@ const UserTable = ({ rowData }) => {
                     <TableCell>
                       <IconButton
                         onClick={() => {
-                          console.log("update", rowData && row.id);
+                          console.log("update", row.id);
                           setselectedUser(idx);
+                          navigate(`${row.id}`);
                         }}
                       >
                         <EditIcon />

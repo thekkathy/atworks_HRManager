@@ -16,7 +16,7 @@ const Navbar = () => {
       <AppBar position="static">
         <Toolbar>
           <div className="d-flex w-100">
-            <Button color="inherit" variant="text">
+            <Button color="inherit" className="navlink">
               <Link to="/" className="navlink">
                 HR Manager
               </Link>
@@ -26,9 +26,6 @@ const Navbar = () => {
           <div className="d-flex justify-content-end w-100">
             <IconButton color="inherit" onClick={goToHome}>
               <HomeIcon />
-            </IconButton>
-            <IconButton color="inherit" onClick={goToHome}>
-              <AccountCircleIcon />
             </IconButton>
           </div>
         </Toolbar>
