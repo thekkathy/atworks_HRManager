@@ -12,10 +12,12 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Moment from "react-moment";
 import { useNavigate } from "react-router";
 import UserModal from "../modals/UserModal";
+import {UsersContext} from "../../context/UsersContext";
+import { retrieveAllUsers } from "../../api/apiRoutes";
 
 const UserTable = ({ rowData }) => {
   const [open, setOpen] = useState(false);
@@ -24,85 +26,112 @@ const UserTable = ({ rowData }) => {
 
   const [selectedUser, setselectedUser] = useState(0);
 
+  const {updateUsers} = useContext(UsersContext);
+
   const navigate = useNavigate();
+
+  const getAllUsers = async () => {
+      const allUsers = await retrieveAllUsers();
+      if (allUsers) {
+        // console.log(JSON.stringify(allUsers));
+        updateUsers(allUsers);
+      }
+  };
+
   return (
     <>
-      <div className="my-4">
-        <Button
-          variant="outlined"
-          onClick={() => {
-            navigate("addUser");
-          }}
-        >
-          + Add User
-        </Button>
+      <div className="d-flex">
+        <div className="my-4 mx-2">
+          <Button
+            variant="outlined"
+            onClick={() => {
+              navigate("addUser");
+            }}
+          >
+            + Add User
+          </Button>
+        </div>
+        <div className="my-4 mx-2">
+          <Button
+            variant="outlined"
+            onClick={() => {
+              getAllUsers();
+            }}
+          >
+            All Users
+          </Button>
+        </div>
       </div>
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                <b>Full Name</b>
-              </TableCell>
-              <TableCell>
-                <b>Birth Date</b>
-              </TableCell>
-              <TableCell>
-                <b>Type</b>
-              </TableCell>
-              <TableCell>
-                <b>Actions</b>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rowData &&
-              rowData.map((row, idx) => {
-                return (
-                  <TableRow>
-                    <TableCell>{rowData && row.fullName}</TableCell>
-                    <TableCell>
-                      <Moment format="MMM D, YYYY" withTitle>
-                        {rowData && row.dateOfBirth}
-                      </Moment>
-                    </TableCell>
-                    <TableCell>
-                      <Typography sx={{ textTransform: "capitalize" }}>
-                        {rowData && row.userType}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <IconButton
-                        onClick={() => {
-                          console.log("update", row.id);
-                          setselectedUser(idx);
-                          navigate(`${row.id}`);
-                        }}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton
-                        onClick={() => {
-                          console.log("open modal delete", idx);
-                          setselectedUser(idx);
-                          handleOpen();
-                        }}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                      <UserModal
-                        open={open}
-                        handleClose={handleClose}
-                        fullName={rowData ? rowData[selectedUser].fullName : ""}
-                      />
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      {rowData && (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <b>Full Name</b>
+                </TableCell>
+                <TableCell>
+                  <b>Birth Date</b>
+                </TableCell>
+                <TableCell>
+                  <b>Type</b>
+                </TableCell>
+                <TableCell>
+                  <b>Actions</b>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rowData &&
+                rowData.map((row, idx) => {
+                  return (
+                    <TableRow>
+                      <TableCell>{rowData && row.fullName}</TableCell>
+                      <TableCell>
+                        <Moment format="MMM D, YYYY" withTitle>
+                          {rowData && row.dateOfBirth}
+                        </Moment>
+                      </TableCell>
+                      <TableCell>
+                        <Typography sx={{ textTransform: "capitalize" }}>
+                          {rowData && row.userType}
+                        </Typography>
+                      </TableCell>
+                      <TableCell>
+                        <IconButton
+                          onClick={() => {
+                            console.log("update", row.id);
+                            setselectedUser(idx);
+                            navigate(row.id);
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <IconButton
+                          onClick={() => {
+                            console.log("open modal delete", idx);
+                            setselectedUser(idx);
+                            handleOpen();
+                          }}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                        <UserModal
+                          open={open}
+                          handleClose={handleClose}
+                          fullName={
+                            rowData ? rowData[selectedUser].fullName : ""
+                          }
+                        />
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </>
   );
 };

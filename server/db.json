@@ -1,19 +1,90 @@
 {
-  "posts": [
+  "users": [
+    {
+      "id": 0,
+      "firstName": "Ada",
+      "lastName": "Lovelacey",
+      "annualSalary": 90000,
+      "dateOfBirth": "1815-12-10",
+      "email": "AdaLovelacey@email.com",
+      "fullName": "Ada Lovelacey",
+      "gender": "female",
+      "mobilePhone": "111-111-1111",
+      "userType": "employee"
+    },
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "firstName": "Grace",
+      "lastName": "Hopper",
+      "annualSalary": 90000,
+      "dateOfBirth": "1906-12-09",
+      "email": "GraceHopper@email.com",
+      "fullName": "Grace Hopper",
+      "gender": "female",
+      "mobilePhone": "111-111-1111",
+      "userType": "employee"
+    },
+    {
+      "id": 2,
+      "firstName": "Margaret",
+      "lastName": "Hamilton",
+      "annualSalary": 150000,
+      "dateOfBirth": "1936-08-17",
+      "email": "MargaretHamilton@email.com",
+      "fullName": "Margaret Hamilton",
+      "gender": "female",
+      "mobilePhone": "111-111-1111",
+      "userType": "consultant"
+    },
+    {
+      "id": 3,
+      "firstName": "Joan",
+      "lastName": "Clarke",
+      "annualSalary": 90000,
+      "dateOfBirth": "1917-06-24",
+      "email": "JoanClarke@email.com",
+      "fullName": "Joan Clarke",
+      "gender": "female",
+      "mobilePhone": "111-111-1111",
+      "userType": "consultant"
     }
   ],
-  "comments": [
+  "addresses": [
+    {
+      "id": 0,
+      "userID": 0,
+      "addrLn1": "1234 Street St",
+      "addrLn2": "",
+      "addrName": "Warehouse",
+      "addrType": "main",
+      "city": "City",
+      "stateCode": "VA",
+      "postalCode": "11011",
+      "country": "US"
+    },
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "userID": 0,
+      "addrLn1": "1111 Lane St",
+      "addrLn2": "2222 Lane St",
+      "addrName": "Headquarters",
+      "addrType": "main",
+      "city": "City",
+      "stateCode": "VA",
+      "postalCode": "11122",
+      "country": "US"
+    },
+    {
+      "id": 0,
+      "userID": 2,
+      "addrLn1": "3355 Main St",
+      "addrLn2": "",
+      "addrName": "Warehouse",
+      "addrType": "main",
+      "city": "Town",
+      "stateCode": "VA",
+      "postalCode": "12345",
+      "country": "US"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
